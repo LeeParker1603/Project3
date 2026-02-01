@@ -17,6 +17,10 @@ def mask_account_card(info_str: str) -> str:
 
 
 def get_date(date_info: str) -> str:
+    """
+    принимает на вход строку с датой в формате "2024-03-11T02:26:18.671407"
+    и возвращает строку с датой в формате "ДД.ММ.ГГГГ"
+    """
     date_info_split = date_info.split("-")
     year = date_info_split[0]
     month = date_info_split[1]
