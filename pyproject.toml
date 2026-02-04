@@ -23,7 +23,7 @@ lint = [
 ]
 
 [tool.black]
-line-length = 119
+line-length = 79
 
 [tool.isort]
 line_length = 119
