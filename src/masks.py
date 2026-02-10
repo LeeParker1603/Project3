@@ -1,7 +1,7 @@
-def get_mask_card_number(card_number: int | str) -> str:
+def get_mask_card_number(card_number: str) -> str:
     """Принимает на вход номер карты в виде числа и возвращает
     маску номера по правилу XXXX XX** **** XXXX"""
-    if card_number != '':
+    if card_number != "":
         if card_number.isdigit():
             card_str = str(card_number)
 
@@ -17,12 +17,12 @@ def get_mask_card_number(card_number: int | str) -> str:
         return "Необходимо ввести номер карты"
 
 
-def get_mask_account(account_number: int | str) -> str:
+def get_mask_account(account_number: str) -> str:
     """Принимает на вход номер счета и возвращает его маску.
     Номер счета замаскирован и отображается в формате **XXXX,
     где X — это цифра номера
     """
-    if account_number != '':
+    if account_number != "":
         if account_number.isdigit():
             account_str = str(account_number)
 
