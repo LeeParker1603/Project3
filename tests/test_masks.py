@@ -60,8 +60,9 @@ def test_get_mask_card_number_conform(list_numbers_non_conform: List) -> None:
         ["**6767", "**5733", "**2247", "**0001"],
     ),
 )
-def test_get_mask_account_number(account_numbers: str,
-                                 masked_account: str) -> None:
+def test_get_mask_account_number(
+    account_numbers: str, masked_account: str
+) -> None:
     assert get_mask_account(account_numbers) == masked_account
 
 
