@@ -5,6 +5,7 @@ import pytest
 from src.masks import get_mask_account, get_mask_card_number
 
 
+# Тестируем корректность работы маски номера карты с разными значениями
 @pytest.mark.parametrize(
     "card_numbers, masked_card",
     zip(
@@ -26,10 +27,12 @@ def test_get_mask_card_number(card_numbers: str, masked_card: str) -> None:
     assert get_mask_card_number(card_numbers) == masked_card
 
 
+# Тестируем корректность работы маски карты с пустыми значениями
 def test_get_mask_card_number_empty(empty: str) -> None:
     assert get_mask_card_number(empty) == "Необходимо ввести номер карты"
 
 
+# Тестируем корректность работы маски карты с недопустимыми значениями
 @pytest.mark.parametrize(
     "card_numbers", ["dddddddddddddddd", "aaaaaa6548888488", "ф", "sssdf"]
 )
@@ -40,6 +43,8 @@ def test_get_mask_card_number_zero(card_numbers: str) -> None:
     )
 
 
+# Тестируем корректность работы маски карты с неправильным количеством символов
+# через перебор в листе в фикстуре.
 def test_get_mask_card_number_conform(list_numbers_non_conform: List) -> None:
     for numbers in list_numbers_non_conform:
         with pytest.raises(
@@ -48,6 +53,7 @@ def test_get_mask_card_number_conform(list_numbers_non_conform: List) -> None:
             get_mask_card_number(numbers)
 
 
+# Тестируем корректность работы маски номера счета с разными значениями
 @pytest.mark.parametrize(
     "account_numbers, masked_account",
     zip(
@@ -66,10 +72,12 @@ def test_get_mask_account_number(
     assert get_mask_account(account_numbers) == masked_account
 
 
+# Тестируем корректность работы маски счета с пустыми значениями
 def test_get_mask_account_number_empty(empty: str) -> None:
     assert get_mask_account(empty) == "Необходимо ввести номер счета"
 
 
+# Тестируем корректность работы маски счета с недопустимыми значениями
 @pytest.mark.parametrize(
     "account_numbers",
     ["dddsddddddddddddd", "aasaaaa6548888488", "фs", "ssфsdf"],
@@ -81,6 +89,8 @@ def test_get_mask_account_number_zero(account_numbers: str) -> None:
     )
 
 
+# Тестируем корректность работы маски счета с неправильным количеством символов
+# через перебор в листе в фикстуре.
 def test_get_mask_account_conform(list_numbers_non_conform: List) -> None:
     for numbers in list_numbers_non_conform:
         with pytest.raises(

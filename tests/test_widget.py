@@ -3,6 +3,7 @@ import pytest
 from src.widget import get_date, mask_account_card
 
 
+# Тестируем корректность преобразования даты.
 @pytest.mark.parametrize(
     "dates_info, date_output",
     zip(
@@ -21,8 +22,7 @@ from src.widget import get_date, mask_account_card
             "31.01.2024",
             "Поле не может быть пустым или формат "
             "строки ХХХХ-ХХ-ХХ**************",
-            "Формат строки обязательно: "
-            "ХХХХ-ХХ-ХХ**************",
+            "Формат строки обязательно: " "ХХХХ-ХХ-ХХ**************",
         ],
     ),
 )
@@ -30,14 +30,15 @@ def test_get_date_correct(dates_info: str, date_output: str) -> None:
     assert get_date(dates_info) == date_output
 
 
+# Тестируем преобразование с пустыми значениями даты
 def test_get_date_empty(empty: str) -> None:
     assert (
-        get_date(empty)
-        == "Поле не может быть пустым или формат "
-           "строки ХХХХ-ХХ-ХХ**************"
+        get_date(empty) == "Поле не может быть пустым или формат "
+        "строки ХХХХ-ХХ-ХХ**************"
     )
 
 
+# Тестируем корректность работы маски с разными значениями
 @pytest.mark.parametrize(
     "info_str, output_str",
     zip(
@@ -57,5 +58,6 @@ def test_mask_account_card_correct(info_str: str, output_str: str) -> None:
     assert mask_account_card(info_str) == output_str
 
 
+# Тестируем корректность работы маски с пустым значением
 def test_mask_account_card_empty(empty: str) -> None:
     assert mask_account_card(empty) == "Введите тип и номер карты или счета"
