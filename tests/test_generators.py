@@ -1,19 +1,27 @@
-from typing import List, Any
+from typing import Any, List
 
 import pytest
 
-from src.generators import (filter_by_currency,
-                            transaction_descriptions,
-                            card_number_generator)
+from src.generators import (
+    card_number_generator,
+    filter_by_currency,
+    transaction_descriptions,
+)
 
 
 # Тест, что функция корректно фильтрует транзакции
 # по заданной валюте
-def test_filter_by_currency(transactions_list: List, transactions_result: List) -> None:
+def test_filter_by_currency(
+    transactions_list: List, transactions_result: List
+) -> None:
     usd_transactions = list(filter_by_currency(transactions_list, "USD"))
     assert len(usd_transactions) > 0  # Убедились, что есть транзакции в USD
-    assert all(transactions['operationAmount']['currency']['code'] == 'USD' for transactions in usd_transactions)
+    assert all(
+        transactions["operationAmount"]["currency"]["code"] == "USD"
+        for transactions in usd_transactions
+    )
     assert usd_transactions == transactions_result
+
 
 # Тест, что функция не завершается ошибкой при обработке
 # пустого списка
