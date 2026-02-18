@@ -2,11 +2,8 @@ from typing import Any, List
 
 import pytest
 
-from src.generators import (
-    card_number_generator,
-    filter_by_currency,
-    transaction_descriptions,
-)
+from src.generators import (card_number_generator, filter_by_currency,
+                            transaction_descriptions)
 
 
 # Тест, что функция корректно фильтрует транзакции
@@ -46,17 +43,65 @@ def test_transaction_descriptions_empty():
 
 
 # Тест, который проверяет, что генератор выдает
-# правильные номера карт в заданном диапазоне
-def test_card_number_generator():
-    pass
-
-
+# правильные номера карт в заданном диапазоне.
 # Проверяем корректность форматирования номеров карт
-def test_card_number_generator_format():
-    pass
-
-
 # Проверяем, что генератор корректно обрабатывает крайние
 # значения диапазона и правильно завершает генерацию
-def test_card_number_generator_correct():
-    pass
+@pytest.mark.parametrize(
+    "start, stop, gen_numbers",
+    [
+        (
+            5,
+            7,
+            [
+                "0000 0000 0000 0005",
+                "0000 0000 0000 0006",
+                "0000 0000 0000 0007",
+            ],
+        ),
+        (
+            55788,
+            55793,
+            [
+                "0000 0000 0005 5788",
+                "0000 0000 0005 5789",
+                "0000 0000 0005 5790",
+                "0000 0000 0005 5791",
+                "0000 0000 0005 5792",
+                "0000 0000 0005 5793",
+            ],
+        ),
+        (
+            88888888888,
+            88888888894,
+            [
+                "0000 0888 8888 8888",
+                "0000 0888 8888 8889",
+                "0000 0888 8888 8890",
+                "0000 0888 8888 8891",
+                "0000 0888 8888 8892",
+                "0000 0888 8888 8893",
+                "0000 0888 8888 8894",
+            ],
+        ),
+        (0, 15, []),  # проверяем крайнее значение start
+        (
+            9999999999999999999,
+            9999999999999999999999999999999,
+            [],
+        ),  # проверяем крайнее значение stop
+        (
+            "1",
+            "3",
+            [
+                "0000 0000 0000 0001",
+                "0000 0000 0000 0002",
+                "0000 0000 0000 0003",
+            ],
+        ),  # проверяем преобразование из строки в int
+    ],
+)
+def test_card_number_generator(
+    start: int, stop: int, gen_numbers: List
+) -> None:
+    assert list(card_number_generator(start, stop)) == gen_numbers
