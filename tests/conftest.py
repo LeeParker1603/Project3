@@ -141,7 +141,7 @@ def transactions_list() -> List[Dict]:
 # Фикстура для значений, которые возвращает
 # функция filter_by_currency
 @pytest.fixture
-def transactions_result():
+def transactions_result() -> List[Dict]:
     return [
         {
             "id": 939719570,
