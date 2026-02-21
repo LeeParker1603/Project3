@@ -1,8 +1,8 @@
 from typing import Any
 
+from src.decorators import log
 from src.processing import filter_by_state, sort_by_date
 from src.widget import get_date, mask_account_card
-from src.decorators import log
 
 if __name__ == "__main__":
     input_info = "Visa Classic 6831982476737658"
