@@ -1,0 +1,2 @@
+my_function ok
+log_testing_write error: division by zero. Inputs (1, 0), {}
