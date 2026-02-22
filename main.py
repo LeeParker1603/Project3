@@ -1,3 +1,6 @@
+from typing import Any
+
+from src.decorators import log
 from src.processing import filter_by_state, sort_by_date
 from src.widget import get_date, mask_account_card
 
@@ -57,3 +60,10 @@ if __name__ == "__main__":
 
     print(filter_by_state(user_info))
     print(sort_by_date(date_info))
+
+    @log(filename=None)
+    def log_testing_main(x: int, y: int) -> Any:
+        return x / y
+
+    log_testing_main(1, 1)
+    print(log_testing_main(1, 0))
