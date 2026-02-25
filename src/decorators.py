@@ -25,9 +25,11 @@ def log(filename: Any = None) -> Any:
             try:
                 result = func(*args, **kwargs)
                 end_time = datetime.fromtimestamp(time())
-                log_message = (f"Время начала: {start_time}\n"
-                               f"Время окончания: {end_time}\n"
-                               f"{func.__name__} ok\n")
+                log_message = (
+                    f"Время начала: {start_time}\n"
+                    f"Время окончания: {end_time}\n"
+                    f"{func.__name__} ok\n"
+                )
             except Exception as e:
                 log_message = (
                     f"{func.__name__} error: {e}. Inputs {args}, {kwargs}\n"

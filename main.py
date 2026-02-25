@@ -1,15 +1,18 @@
-from typing import Any
-
-from src.decorators import log
-from src.processing import filter_by_state, sort_by_date
-from src.utils import get_transactions_from_json
-from src.widget import get_date, mask_account_card
+# from typing import Any
+# from src.decorators import log
+# from src.processing import filter_by_state, sort_by_date
+# from src.utils import get_transactions_from_json
+# # from src.widget import get_date, mask_account_card
+# from src.external_api import currency_conversion
 
 
 if __name__ == "__main__":
-    file_json = 'data/operations.json'
-    print(get_transactions_from_json(file_json))
-    print(type(get_transactions_from_json(file_json)))
+    pass
+    # file_json = 'data/operations.json'
+    # transaction_data = get_transactions_from_json(file_json)
+    # print(currency_conversion(transaction_data[2]))
+
+    # print(type(get_transactions_from_json(file_json)))
     # input_info = "Visa Classic 6831982476737658"
     # # input_info = "счет 56456831982476737658"
     # input_date = "2024-03-11T02:26:18.671407"
