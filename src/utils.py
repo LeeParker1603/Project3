@@ -21,5 +21,5 @@ def get_transactions_from_json(file_path: str) -> List[Dict[str, Any]]:
             else:
                 return []
     except json.JSONDecodeError, ValueError:
-        # Если файл пустой или содержит неверный формат
+        # Ошибка декодирования или некорректные данные
         return []
