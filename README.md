@@ -213,19 +213,73 @@ my_function error: тип ошибки. Inputs: (1, 2), {}
 Где тип ошибки заменяется на текст ошибки
 ```  
 
-# Тестирование:
-### Проект покрыт модульными (unit) тестами на 100%.
+## Модуль utils
+Модуль utils предоставляет функции для работы с данными в json-файле.
+
+**get_transactions_from_json(file_path: str) -> List[Dict[str, Any]]**  
+Принимает путь до JSON-файла и возвращает список словарей с данными.  
+Если файл пустой, содержит не список или не найден,  
+возвращает пустой список.
+
+**Параметры:**
+
+В параметр file_path функция принимает json-файл  
+В данном проекте файл 'data/operations.json'
+
+**Пример использования:**
 ```
-Name                Stmts   Miss  Cover
----------------------------------------
-src\__init__.py         0      0   100%
-src\decorators.py      23      0   100%
-src\generators.py      20      0   100%
-src\masks.py           20      0   100%
-src\processing.py      11      0   100%
-src\widget.py          20      0   100%
----------------------------------------
-TOTAL                  94      0   100%
+file_json = 'data/operations.json'
+    transaction_data = get_transactions_from_json(file_json)
+```  
+
+## Модуль external_api
+Модуль external_api предоставляет функции для работы с внешними API-запросами
+
+**currency_conversion(transaction: Dict) -> float**  
+принимает на вход транзакцию и возвращает сумму транзакции (amount) в рублях,  
+тип данных — float. Если транзакция была в USD или EUR, происходит обращение  
+к внешнему API для получения текущего курса валют  
+и конвертации суммы операции в рубли. 
+
+**Параметры:**
+
+transaction принимает вложенный словарь по индексу из результата функции
+get_transactions_from_json.
+
+**Важно! Работа с API и .env:**
+Для корректной работы, вам необходимо зарегистрироваться на ресурсе:  
+Exchange Rates Data API: https://apilayer.com/exchangerates_data-api
+и получить API_KEY, который необходимо прописать в файле .env (пример в 
+файле .env.example)
+Также необходимо установить библиотеку dotenv через терминал:
+```
+poetry add python-dotenv
+```  
+
+**Пример использования:**
+```
+file_json = 'data/operations.json'
+    transaction_data = get_transactions_from_json(file_json)
+    print(currency_conversion(transaction_data[1]))
+```  
+
+# Тестирование:
+### Проект покрыт модульными (unit) тестами на 99%.
+```
+Name                  Stmts   Miss  Cover
+-----------------------------------------
+src\__init__.py           0      0   100%
+src\decorators.py        24      0   100%
+src\external_api.py      25      0   100%
+src\generators.py        20      0   100%
+src\masks.py             20      0   100%
+src\processing.py        11      0   100%
+src\utils.py             16      1    94%
+src\widget.py            20      0   100%
+-----------------------------------------
+TOTAL                   136      1    99%
+
+
 
 
 ```

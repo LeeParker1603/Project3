@@ -180,3 +180,15 @@ def transactions_result() -> List[Dict]:
             "to": "Visa Platinum 8990922113665229",
         },
     ]
+
+
+# Фикстура для тестирования рубля
+@pytest.fixture
+def rub_transaction() -> Any:
+    return {"operationAmount": {"amount": 100.50, "currency": {"code": "RUB"}}}
+
+
+# Фикстура для доллара
+@pytest.fixture
+def usd_transaction() -> Any:
+    return {"operationAmount": {"amount": 10, "currency": {"code": "USD"}}}
