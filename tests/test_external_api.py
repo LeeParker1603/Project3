@@ -48,36 +48,25 @@ def test_currency_conversion_json_error(
 
     result = currency_conversion(usd_transaction)
 
-    # Проверяем, что функция вернула None и вывела ошибку в консоль
+    # Проверяем, что функция вернула float и вывела ошибку в консоль
     captured = capsys.readouterr()
     assert "Ошибка: Сервер прислал не JSON." in captured.out
-    assert result is None
+    assert result == 0.0
 
 
 # 4. Тест на ошибку HTTP (например, 401 Unauthorized)
 @patch("requests.get")
 @patch("os.getenv")
 def test_currency_conversion_http_error(
-    mock_getenv: Any, mock_get: Any, usd_transaction: Any, capsys: Any
+    usd_transaction: Any, capsys: Any
 ) -> None:
-    # 1. Настройка окружения
-    mock_getenv.return_value = "wrong_key"
+    with patch("requests.get") as mock_get:
+        # Эмулируем исключение HTTPError
+        mock_response = mock_get.return_value
+        mock_response.raise_for_status.side_effect = requests.HTTPError(
+            "Simulated HTTP Error"
+        )
 
-    # 2. Создаем мок ответа
-    mock_response = MagicMock()
-
-    # Имитируем исключение.
-    mock_get.side_effect = requests.exceptions.HTTPError("401 Client Error")
-    mock_get.return_value = mock_response
-
-    # 3. Вызов функции
-    result = currency_conversion(usd_transaction)
-
-    # 4. Проверки (Assertions)
-    # Проверяем, что функция не упала, а вернула None
-    # (так как в блоке except нет return)
-    assert result is None
-
-    # Проверяем, что в консоль напечаталось сообщение об ошибке
-    captured = capsys.readouterr()
-    assert "Ошибка HTTP: 401 Client Error" in captured.out
+        # Запускаем функцию и проверяем результат
+        result = currency_conversion(usd_transaction)
+        assert result == 0.0

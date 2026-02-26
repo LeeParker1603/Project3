@@ -235,7 +235,7 @@ file_json = 'data/operations.json'
 ## Модуль external_api
 Модуль external_api предоставляет функции для работы с внешними API-запросами
 
-**currency_conversion(transaction: Dict) -> Any**  
+**currency_conversion(transaction: Dict) -> float**  
 принимает на вход транзакцию и возвращает сумму транзакции (amount) в рублях,  
 тип данных — float. Если транзакция была в USD или EUR, происходит обращение  
 к внешнему API для получения текущего курса валют  
@@ -264,7 +264,7 @@ file_json = 'data/operations.json'
 ```  
 
 # Тестирование:
-### Проект покрыт модульными (unit) тестами на 100%.
+### Проект покрыт модульными (unit) тестами на 99%.
 ```
 Name                  Stmts   Miss  Cover
 -----------------------------------------
@@ -274,10 +274,11 @@ src\external_api.py      25      0   100%
 src\generators.py        20      0   100%
 src\masks.py             20      0   100%
 src\processing.py        11      0   100%
-src\utils.py             14      0   100%
+src\utils.py             16      1    94%
 src\widget.py            20      0   100%
 -----------------------------------------
-TOTAL                   134      0   100%
+TOTAL                   136      1    99%
+
 
 
 

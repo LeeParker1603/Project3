@@ -1,34 +1,52 @@
 import os
 from json import JSONDecodeError
-from typing import Any, Dict
+from typing import Dict
 
 import requests
 from dotenv import load_dotenv
 
 
-def currency_conversion(transaction: Dict) -> Any:
+def currency_conversion(transaction: Dict) -> float:
     """
     Функция, которая принимает на вход транзакцию и возвращает сумму
     транзакции (amount) в рублях, тип данных — float.
     Если транзакция была в USD или EUR, происходит обращение к внешнему API
     для получения текущего курса валют и конвертации суммы операции в рубли.
     """
-    if transaction["operationAmount"]["currency"]["code"] == "RUB":
-        amount = transaction["operationAmount"]["amount"]
-        return amount
-    elif transaction["operationAmount"]["currency"]["code"] == "USD":
+    currency_code = transaction["operationAmount"]["currency"]["code"]
+    raw_amount = transaction["operationAmount"]["amount"]
+
+    # 1. Если это рубли, возвращаем сразу
+    if currency_code == "RUB":
+        return round(float(raw_amount), 2)
+
+    # 2. Если это валюта, которую надо конвертировать
+    if currency_code in ("USD", "EUR"):
         try:
-            currency_amount = transaction["operationAmount"]["amount"]
-            url = "https://api.apilayer.com/exchangerates_data/convert"
-            payload = {"amount": {currency_amount}, "from": "USD", "to": "RUB"}
             load_dotenv()
             apilayer_key = os.getenv("API_KEY")
+
+            url = "https://api.apilayer.com/exchangerates_data/convert"
+            payload = {
+                "amount": raw_amount,
+                "from": currency_code,
+                "to": "RUB",
+            }
             headers = {"apikey": f"{apilayer_key}"}
-            response = requests.get(url, headers=headers, params=payload)
+
+            response = requests.get(
+                url, headers=headers, params=payload, timeout=10
+            )
+
+            # проверка на HTTPError
+            response.raise_for_status()
+
             conversion = response.json()
-            amount = round(conversion["result"], 2)
-            return amount
-        except JSONDecodeError:
+            return round(float(conversion["result"]), 2)
+
+        except (JSONDecodeError, requests.exceptions.RequestException):
             print("Ошибка: Сервер прислал не JSON.")
-        except requests.exceptions.HTTPError as err:
-            print(f"Ошибка HTTP: {err}")
+            return 0.0
+
+    # 3. Финальный возврат для любой другой валюты
+    return 0.0

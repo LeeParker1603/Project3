@@ -43,6 +43,11 @@ def test_get_transactions_empty_file(tmp_path: Any) -> None:
     assert get_transactions_from_json(str(file)) == []
 
 
+def test_get_transactions_not_found_file() -> None:
+    """Проверка отсутствия файла."""
+    assert get_transactions_from_json("definitely_not_here.json") == []
+
+
 def test_get_transactions_not_json_content(tmp_path: Any) -> None:
     """Проверка файла с произвольным текстом."""
     file = tmp_path / "text.txt"

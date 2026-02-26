@@ -20,6 +20,8 @@ def get_transactions_from_json(file_path: str) -> List[Dict[str, Any]]:
                 return data
             else:
                 return []
-    except json.JSONDecodeError, ValueError:
+    except FileNotFoundError:  # Ошибка файл не найден
+        return []
+    except json.JSONDecodeError:
         # Ошибка декодирования или некорректные данные
         return []
