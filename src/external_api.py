@@ -44,7 +44,7 @@ def currency_conversion(transaction: Dict) -> float:
             conversion = response.json()
             return round(float(conversion["result"]), 2)
 
-        except JSONDecodeError, requests.exceptions.RequestException:
+        except (JSONDecodeError, requests.exceptions.RequestException):
             print("Ошибка: Сервер прислал не JSON.")
             return 0.0
 
