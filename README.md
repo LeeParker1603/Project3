@@ -263,21 +263,57 @@ file_json = 'data/operations.json'
     print(currency_conversion(transaction_data[1]))
 ```  
 
+## Модуль data_loader
+Модуль data_loader предоставляет функции для работы с данными в CSV- и 
+EXCEL- файлах.
+
+**load_csv(file_csv: str) -> List[Dict[str, Any]]**  
+Принимает путь до CSV-файла и возвращает список словарей с данными.
+
+**Параметры:**
+
+В параметр file_csv функция принимает CSV-файл  
+В данном проекте файл 'data/transactions.csv'
+
+**Пример использования:**
+```
+data_csv = load_csv('data/transactions.csv')
+print(data_csv)
+```  
+
+**load_excel(file_excel: str) -> List[Dict[str, Any]]**  
+Принимает путь до EXCEL-файла и возвращает список словарей с данными.
+
+**Параметры:**
+
+В параметр file_excel функция принимает EXCEL-файл  
+В данном проекте файл 'data/transactions_excel.xlsx'
+
+**Пример использования:**
+```
+data_excel = load_excel('data/transactions_excel.xlsx')
+print(data_excel)
+print(json.dumps(data_excel, indent=4, ensure_ascii=False))
+```  
+
+
 # Тестирование:
 ### Проект покрыт модульными (unit) тестами на 99%.
 ```
 Name                  Stmts   Miss  Cover
 -----------------------------------------
 src\__init__.py           0      0   100%
+src\data_loader.py       11      0   100%
 src\decorators.py        24      0   100%
 src\external_api.py      25      0   100%
 src\generators.py        20      0   100%
-src\masks.py             20      0   100%
+src\masks.py             41      0   100%
 src\processing.py        11      0   100%
-src\utils.py             16      1    94%
+src\utils.py             29      2    93%
 src\widget.py            20      0   100%
 -----------------------------------------
-TOTAL                   136      1    99%
+TOTAL                   181      2    99%
+
 
 
 
