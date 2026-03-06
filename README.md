@@ -86,6 +86,25 @@ sorted_list_dict = sort_by_date(date_info)
 {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}
 ]
 ```
+**process_bank_search(data: list[dict], search: str) -> list[dict]**  
+Фильтрует список словарей по наличию строки поиска в описании (description).
+
+**Параметры:**
+
+data: Список словарей с операциями  
+search: строка поиска. 
+
+**process_bank_operations(data: list[dict], categories: list) -> dict**  
+Считает количество операций для каждой категории из списка.  
+Ключи — названия категорий, значения — количество найденных операций.
+
+**Параметры:**
+
+data: Список словарей с операциями.
+categories: Список категорий. 
+
+
+
 ## Модуль generators
 Модуль generators предоставляет функции для создания генераторов для банковских операций.
 
@@ -298,26 +317,22 @@ print(json.dumps(data_excel, indent=4, ensure_ascii=False))
 
 
 # Тестирование:
-### Проект покрыт модульными (unit) тестами на 99%.
+### Проект покрыт модульными (unit) тестами на 98%.
 ```
 Name                  Stmts   Miss  Cover
 -----------------------------------------
+main.py                  97      1    99%
 src\__init__.py           0      0   100%
 src\data_loader.py       11      0   100%
 src\decorators.py        24      0   100%
 src\external_api.py      25      0   100%
 src\generators.py        20      0   100%
 src\masks.py             41      0   100%
-src\processing.py        11      0   100%
-src\utils.py             29      2    93%
-src\widget.py            20      0   100%
+src\processing.py        22      0   100%
+src\utils.py             32      3    91%
+src\widget.py            24      2    92%
 -----------------------------------------
-TOTAL                   181      2    99%
-
-
-
-
-
+TOTAL                   296      6    98%
 ```
 ## Запуск тестов:
 Для запуска тестов используется [pytest](https://docs.pytest.org)
@@ -333,6 +348,13 @@ TOTAL                   181      2    99%
 ```
 git clone https://github.com/LeeParker1603/Project3.git
 ```
+# Запуск:
+## Модуль main
+**Запустите выполнение файла main в терминале** 
+```
+python main.py
+```
+
 # Разработка:
 
 + Проект находится в активной разработке. В ближайших планах:
