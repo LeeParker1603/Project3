@@ -58,7 +58,7 @@ def state_non_default() -> List[Dict]:
 
 
 # Фикстура для предоставления тестовых данных список словарей,
-# c некорректными датами.
+# с некорректными датами.
 @pytest.fixture
 def non_correct_date() -> List[Dict]:
     return [

@@ -6,6 +6,8 @@ def mask_account_card(info_str: str) -> str:
     Принимает на вход строку, содержащую тип и номер карты или счета,
     и возвращает строку с замаскированным номером в зависимости от типа
     """
+    if not isinstance(info_str, str):
+        return "Счет не указан"
     if info_str != "":
         info_split = info_str.split()
         number = info_split[-1]
@@ -24,6 +26,9 @@ def get_date(date_info: str) -> str:
     Принимает на вход строку с датой в формате "2024-03-11T02:26:18.671407"
     и возвращает строку с датой в формате "ДД.ММ.ГГГГ"
     """
+    if not isinstance(date_info, str):
+        return "Дата не указана"
+
     if date_info != "" and len(date_info) > 8:
         if date_info[4] == "-" and date_info[7] == "-":
             date_info_split = date_info.split("-")

@@ -5,6 +5,9 @@ from typing import Any, Dict, List
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
+log_dir = "logs"
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
 file_handler = logging.FileHandler(
     "logs/utils.log", mode="w", encoding="utf-8-sig"
 )
